@@ -22,7 +22,8 @@ const {
   deleteChild,
   editChild,
   getChildByParentEmail,
-  updateChildNameByParentEmail
+  updateChildNameByParentEmail,
+  getChildrensById
 } = require('../controllers/childController');
 const auth = require('../middleware/authMiddleware');
 const router = express.Router();
@@ -50,6 +51,9 @@ router.delete('/:childId', auth, deleteChild);
 router.put('/:childId/update-name', auth, editChild);
 router.post('/get-child-by-parent-email', getChildByParentEmail);
 router.put('/update-child-name-by-parent-email', updateChildNameByParentEmail);
+
+// route for get childrens by by parentId
+router.get('/childrens/:parentId', getChildrensById);
 
 
 

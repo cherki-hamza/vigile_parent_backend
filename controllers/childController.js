@@ -464,3 +464,30 @@ exports.updateChildNameByParentEmail = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+// method for get childrens by parentId
+exports.getChildrensById = async(req, res) => {
+   
+  try {
+    const { parentId } = req.params;
+
+    // Check if the parentId is a valid MongoDB ObjectId
+   /*  if (!mongoose.Types.ObjectId.isValid(parentId)) {
+      return res.status(400).json({ error: 'Invalid parentId format' });
+    } */
+
+    // Find all children by parentId
+    const childrens = await Child.find({ parentId });
+
+    if (childrens.length === 0) {
+      return res.status(404).json({ message: 'No children found for this parentId' });
+    }
+
+    // Return the list of children
+    res.json(childrens);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+
+};
